@@ -1,4 +1,5 @@
-#version1.1 此版本只适合centos7自动配置可用的vsftpd
+#!/bin/bash
+#version1.2 此版本只适合centos7自动配置可用的vsftpd
 yum install -y  vsftpd 
 touch vsftpd.conf
 echo  -e " anonymous_enable=NO\n local_enable=YES\n write_enable=YES\n local_umask=022\n dirmessage_enable=YES\n xferlog_enable=YES\n connect_from_port_20=NO\n port_enable=NO\n pasv_enable=YES\n pasv_min_port=10050\n pasv_max_port=10060\n pasv_promiscuous=YES\n xferlog_std_format=YES\n chroot_local_user=YES\n chroot_list_enable=YES\n chroot_list_file=/etc/vsftpd/chroot_list\n listen=YES\n listen_ipv6=NO\n pam_service_name=vsftpd\n userlist_enable=NO\n tcp_wrappers=YES\n " > vsftpd.conf
@@ -13,9 +14,10 @@ firewall-cmd --zone=public --add-port=10050-10060/tcp --permanent  > /dev/null
 firewall-cmd --reload  > /dev/null
 
 #创建ftp用户
-echo "正在创建ftp用户名ftp"
-useradd -d /home/ftp -s /sbin/nologin ftp
-passwd ftp
-echo "ftp" >> /etc/vsftpd/chroot_list
-chmod 777 /home/ftp
+echo "正在创建ftp用户,名字：ftpuser"
+useradd -d /home/ftpuser -s /sbin/nologin ftpuser
+passwd ftpuser
+echo "ftpuser" >> /etc/vsftpd/chroot_list
+chmod 777 /home/ftpuser
 systemctl restart vsftpd
+systemctl enable vsftpd
