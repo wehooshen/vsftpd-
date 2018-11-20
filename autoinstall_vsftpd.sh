@@ -14,10 +14,10 @@ firewall-cmd --zone=public --add-port=10050-10060/tcp --permanent  > /dev/null
 firewall-cmd --reload  > /dev/null
 
 #创建ftp用户
-echo "正在创建ftp用户,名字：ftpuser"
-useradd -d /home/ftpuser -s /sbin/nologin ftpuser
-passwd ftpuser
-echo "ftpuser" >> /etc/vsftpd/chroot_list
-chmod 777 /home/ftpuser
+echo "正在创建ftp用户,名字：heyo"
+useradd -d /home/heyo -s /sbin/nologin heyo
+passwd 789654
+echo "heyo" >> /etc/vsftpd/chroot_list
+chmod 777 /home/heyo
 systemctl restart vsftpd
 systemctl enable vsftpd
